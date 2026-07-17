@@ -11,3 +11,5 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .venv/
+data/*.xls
+data/*.xlsx
