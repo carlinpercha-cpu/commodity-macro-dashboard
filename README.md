@@ -62,9 +62,9 @@ GPR is widely assumed to drive gold and oil, but markets price anticipation cont
 
 Across every case — including oil (strongest channel) and the calm regime (GPR's best shot) — GPR was statistically insignificant. The gate was validated on synthetic data to confirm it detects real effects and rejects noise, so this is a genuine null. **VIX, forward-looking and continuously priced, already absorbs the geopolitical signal that newspaper-based GPR captures later and noisier.** GPR stays out.
 
-### 5. The factor structure is regime-conditional — the dollar–energy link *flipped* in 2022 (the key finding)
+### 5. The factor structure is regime-conditional — and the dollar–oil link is undergoing a *recent, ongoing* break (the key finding)
 
-The headline correlations were established on explore only. Re-running them on the untouched 2022+ holdout revealed **structural breaks**:
+The headline correlations were established on explore only. Re-running on the untouched 2022+ holdout revealed **structural breaks**:
 
 | Asset | USD corr (explore) | USD corr (holdout) | Yield corr (explore) | Yield corr (holdout) |
 |---|---|---|---|---|
@@ -75,9 +75,11 @@ The headline correlations were established on explore only. Re-running them on t
 | Copper | −0.56 | −0.53 | **+0.29** | **−0.22** |
 | Platinum | −0.60 | −0.43 | +0.11 | −0.23 |
 
-The dollar–commodity inverse relationship held for precious and most industrial metals (5 of 8 assets) but **flipped sign for energy**: WTI and Brent went from ≈−0.5 to slightly *positive*. Economic reading: the 2022 supply shock (Russia's invasion, the supply scramble) drove oil **and** the safe-haven dollar up *together*, overwhelming the usual USD-pricing mechanism. The growth-yield story for copper also inverted, consistent with a stagflationary shock where yields rose on inflation rather than growth.
+The dollar–commodity inverse relationship held for precious and most industrial metals (5 of 8) but **flipped sign for energy**. Follow-up analysis (notebook 07) then revealed something more interesting than a one-off 2022 event: a **rolling 6-month WTI–USD correlation** shows the relationship was only *modestly* disturbed by the 2022 shock (which largely reverted through 2023), then **drifted decisively positive in 2024–2026** — reaching ≈+0.4 by 2026, as positive as it had been negative for two prior decades. Yearly means: −0.17 (2021) → −0.27 (2023) → −0.07 (2024) → **+0.11 (2025) → +0.36 (2026)**.
 
-**This is the project's most valuable result.** The factor relationships are real for "normal" regimes but can break in supply-shock / stagflation regimes. The dollar–commodity hedge is *not reliable* in energy-shock regimes — precisely the kind of conditional truth a trader needs, and precisely what naive full-sample analysis would miss.
+So the dollar–oil break is **not the 2022 war shock lingering — it is a newer, still-developing regime change that mostly postdates 2022.** A 2-regime Markov-switching model (switching variance) cleanly separates calm vs high-volatility states (expected durations ~32 vs ~3 months, spiking at 2008/2015/2019/2020/2025-26) but does *not* capture the gradual sign drift — confirming that the sign change is a slow trend, not a discrete volatility event, and that a switching-*slope* model would be the right next tool.
+
+**This is the project's most valuable result.** The dollar–commodity hedge is not a stable law; for energy it has *inverted* in the current regime. Naive full-sample analysis would report a clean −0.5 and miss that the relationship is, right now, positive.
 
 ### 6. Price direction is unpredictable; volatility regime is not
 
@@ -100,21 +102,23 @@ Decomposing the volatility regime (notebook 05):
 
 ---
 
+### 9. Cross-asset regime alignment — a modest shared stress signature
+
+Regenerating the stock–bond correlation independently from FRED (notebook 08) and aligning it to this project's commodity volatility regime shows **directional co-movement**: the stock–bond correlation averages −0.03 in commodity-high-vol months vs −0.18 in calm months (continuous corr with commodity vol +0.16). When commodities get turbulent, the stock–bond diversification benefit weakens at the same time — consistent with a common "macro stress" driver spanning both projects. The effect is **modest, not conclusive** (30 high-vol months, wide variance) and the regenerated series only reaches back to 2017 (FRED equity-history limit), so it misses 2008. A suggestive link worth extending, not a proven unified regime.
+
 ## Next research directions
 
 The regime-conditionality finding (5) is the spine, and it opens the most interesting questions. Roughly ordered by promise:
 
-1. **Formalize the regime break.** Finding 5 is descriptive (a sign flip across two fixed windows). The rigorous version: a **structural-break test** (Bai-Perron / Chow) to date the dollar–oil decoupling precisely, and a **Markov-switching or threshold regression** to model the two regimes explicitly rather than splitting on a calendar date. This turns "it flipped in 2022" into "here are the estimated regimes and the transition dynamics."
+1. **Model the dollar–oil sign drift directly.** Notebook 07 (rolling correlation + Markov-switching) showed the break is a *recent, ongoing drift* toward positive, which a switching-*variance* model does not capture. The natural next step is a **switching-slope / time-varying-parameter regression** (or Bai-Perron structural-break dating) aimed at the *sign* change specifically, plus investigating candidate drivers (oil-trade invoicing shifts, US energy-export dynamics, the fiscal/dollar picture).
 
-2. **Is the dollar–oil flip permanent or transient?** The holdout bundles all of 2022–2026. Does the inverse relationship *reassert* as the energy shock fades (2024+), or has something structural changed (de-dollarization of oil trade, sanctions regimes)? A rolling-window correlation through the holdout would show whether it's a temporary shock or a lasting break — directly relevant and directly testable.
+2. **Lead-lag, done rigorously.** Notebook 05 found only weak monthly lead-lag (strongest economic signal: Brent → WTI/copper, ~0.2), and the raw "top pair" (natgas→palladium) was flagged as a likely spurious correlation. The honest next step is **higher-frequency lead-lag** (daily panels, which exist) where energy→industrials transmission might be sharper and cleaner, plus a proper **Granger-causality** treatment with lag selection rather than a single-lag correlation.
 
-3. **Lead-lag, done rigorously.** Notebook 05 found only weak monthly lead-lag (strongest economic signal: Brent → WTI/copper, ~0.2), and the raw "top pair" (natgas→palladium) was flagged as a likely spurious correlation. The honest next step is **higher-frequency lead-lag** (daily panels, which exist) where energy→industrials transmission might be sharper and cleaner, plus a proper **Granger-causality** treatment with lag selection rather than a single-lag correlation.
+3. **Regime-conditional GPR — the one place conflict data might survive.** GPR failed the aggregate monthly gate (finding 4), but two untested angles remain: **daily frequency** (the newer LLM-based AI-GPR daily index against daily returns, catching event-window reactions the monthly average washes out) and **country-specific event studies** (Russia/Saudi GPR around specific supply shocks, as case studies rather than a continuous regressor). These are narrow, honest follow-ups, not a re-litigation of the null.
 
-4. **Regime-conditional GPR — the one place conflict data might survive.** GPR failed the aggregate monthly gate (finding 4), but two untested angles remain: **daily frequency** (the newer LLM-based AI-GPR daily index against daily returns, catching event-window reactions the monthly average washes out) and **country-specific event studies** (Russia/Saudi GPR around specific supply shocks, as case studies rather than a continuous regressor). These are narrow, honest follow-ups, not a re-litigation of the null.
+4. **Extend the FX track.** FX was explored descriptively (notebook 06) but not modeled. The dollar-as-haven result (USD–VIX +0.50) is strong; a natural extension is whether **FX carry** or the **dollar smile** (USD strengthening in both risk-off *and* US-outperformance regimes) shows up, and whether FX regimes align with the commodity volatility regimes.
 
-5. **Extend the FX track.** FX was explored descriptively (notebook 06) but not modeled. The dollar-as-haven result (USD–VIX +0.50) is strong; a natural extension is whether **FX carry** or the **dollar smile** (USD strengthening in both risk-off *and* US-outperformance regimes) shows up, and whether FX regimes align with the commodity volatility regimes.
-
-6. **Cross-asset regime alignment.** Do the commodity volatility regimes (finding 7) coincide with equity-vol regimes, credit-spread regimes, or the stock–bond correlation regimes from the [prior study](https://github.com/carlinpercha-cpu/stock-bond-correlation)? A unified "macro regime" indicator spanning both projects would be a genuinely novel synthesis.
+5. **Extend the cross-asset synthesis (finding 9) back through 2008.** The stock–bond alignment used a FRED equity series limited to 2017+. Rebuilding with a longer-history equity index (or merged SP500 levels) would let the commodity-vs-stock-bond stress alignment be tested across 2008 and 2011 — the best crisis test cases — turning the modest suggestive link into something conclusive or clearly rejected.
 
 ---
 
@@ -135,6 +139,8 @@ notebooks/
   04_prediction.ipynb            direction (dead) + vol regime (AUC 0.93)
   05_intelligence.ipynb          regime characterization + lead-lag
   06_fx_and_robustness.ipynb     FX, regime correlations, holdout robustness
+  07_dollar_oil_break.ipynb      rolling corr + Markov-switching on the USD-oil break
+  08_cross_asset_regime.ipynb    commodity vol vs stock-bond correlation regimes
 ```
 
 ## Reproduce
