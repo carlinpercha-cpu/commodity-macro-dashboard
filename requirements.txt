@@ -1,0 +1,7 @@
+pandas
+requests
+yfinance
+pyarrow          # parquet
+python-dotenv    # load .env
+streamlit        # Phase 4 dashboard
+plotly

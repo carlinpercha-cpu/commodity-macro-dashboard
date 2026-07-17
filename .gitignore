@@ -1,0 +1,13 @@
+# data is a build output, not an artifact -- regenerate via build_panels
+data/*.parquet
+data/*.csv
+!data/.gitkeep
+
+# secrets
+.env
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
